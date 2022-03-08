@@ -20,7 +20,7 @@ PaddlePaddle **GAN**的训练/评估代码以及预训练模型。
 该模块在 Python3.6+ 和 PaddlePaddle 2.1.0+ 上进行了测试，大多数依赖项通过PaddlePaddle安装，您只需要安装以下依赖项：
 
 ```shell
-pip install yacs yaml lmdb
+pip install yacs pyyaml lmdb
 ```
 然后 下载 github repo:
 ```shell
@@ -68,8 +68,8 @@ from generator import Generator
 config = get_config('./configs/styleformer_cifar10.yaml')
 # build model
 model = Generator(config)
-# load pretrained weights, .pdparams is NOT needed
-model_state_dict = paddle.load('./cifar10')
+# load pretrained weights
+model_state_dict = paddle.load('./cifar10.pdparams')
 model.set_dict(model_state_dict)
 ```
 
@@ -81,10 +81,10 @@ sh run_generate.sh
 or 
 ```shell
 python generate.py \
-  -cfg='./configs/styleformer_cifar10.yaml' \
+  -cfg=./configs/styleformer_cifar10.yaml \
   -num_out_images=16 \
-  -out_folder='./images_cifar10' \
-  -pretrained='./cifar10.pdparams'
+  -out_folder=./images_cifar10 \
+  -pretrained=/path/to/pretrained/model/cifar10  # .pdparams is NOT needed
 ```
 输出图像存储在 `-out_folder` 路径中.
 
